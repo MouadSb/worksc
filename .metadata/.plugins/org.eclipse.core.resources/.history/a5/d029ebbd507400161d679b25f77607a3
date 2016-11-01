@@ -1,0 +1,259 @@
+$(document).ready(function() {
+			var table = $('#table').DataTable({
+				"language": {
+		            "lengthMenu": "Afficher _MENU_ enregistrements",
+		            "zeroRecords": "Aucun enregistrement à afficher.",
+		            "info": "Page _PAGE_ sur _PAGES_",
+		            "infoEmpty": "Aucun enregistrement disponible",
+		            "infoFiltered": "(filtré _MAX_ nombre total d'enregistrements)",
+		            "loadingRecords": "Chargement...",
+		            "processing":     "En traitement...",
+		            "search":         "Rechercher:",
+		            "paginate": {
+		                "first":      "Premier",
+		                "last":       "Dernier",
+		                "next":       "Suivant",
+		                "previous":   "Précédent"
+		            },
+		            "aria": {
+		                "sortAscending":  ": Activer pour trier la colonne ascendante",
+		                "sortDescending": ": Activer pour trier la colonne descendante"
+		            }
+		        },
+				 //  dom: 'l<"toolbar">frtip',
+				   initComplete: function(){
+				      $("div.dataTables_length")
+				      .append('<div class="col-sm-4 col-md-6 pull-left id="divSearch"><select type="search" class="form-control select-table-filter" data-table="table"><option id="optionList" value="">Tout les projets</option>  <c:forEach var="listptache" items="${listptache}"><option id="optionList" value="${listptache.nomProjet}">${listptache.nomProjet}</option></c:forEach><select></div>');         
+				   }
+
+				 
+				});	
+			var data = table.row( 0 ).data();
+			document.getElement
+		//	$(".divSearch").css( "pull-right" );
+			$( ".dataTables_filter" ).parent().parent().removeClass("row");
+			$( ".dataTables_length" ).parent().css( "background-color", "#23c0e3" );
+			$( ".dataTables_filter" ).parent().css( "background-color", "#23c0e3" );
+			$(".dataTables_filter").children("label").css("color","white");
+			//$("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
+		});
+		
+
+		$("#btn_edit").click(
+				function() {
+					 var idProjetEdit=0,
+					 idTacheEdit=0,nomProjetEdit=0,chefProjetM=0,nomClientM=0,nomTacheM=0,
+					 statusM=0,nomProjetMT=0,idatefTacheM=0;
+						var iidTacheEdit = $('#idTacheEdit');
+						var iidProjetEdit = $('#idProjetEdit');
+						var inomProjetEdit = $('#nomProjetEdit');
+						var ichefProjetM = $('#chefProjetM');
+						var inomClientM = $('#nomClientM');
+						var inomTacheM = $('#nomTacheM');
+						var istatusM = $('#statusM');
+						var inomProjetMT = $('#nomProjetMT');
+						var idatedTacheM = $('#datedTacheM');
+						//var idatefTacheM = $('#datefTacheM');
+					 
+					var choix = document.getElementsByName('rads');
+					var id=0;
+					for(var i = 0; i < choix.length; i++){
+					    if(choix[i].checked){
+					        id = choix[i].value;
+					    }
+					}
+					if(id == 0){
+						$('#myModal').modal('show');	
+					}else{
+						$('#update').modal('show');
+						$("#"+id+"").each(function() {
+							idTacheEdit = $(this).find("td:nth-child(1)").html(); 
+							idProjetEdit = $(this).find("td:nth-child(2)").html();    
+							nomProjetEdit = $(this).find("td:nth-child(3)").html(); // deux fields
+							nomProjetMT = $(this).find("td:nth-child(3)").html(); 
+							nomClientM = $(this).find("td:nth-child(4)").html(); 
+							nomTacheM = $(this).find("td:nth-child(5)").html(); 
+							//datedTacheM = $(this).find("td:nth-child(6)").html(); 
+							datefTacheM = $(this).find("td:nth-child(7)").html(); 
+							statusM = $(this).find("td:nth-child(8)").html(); 
+							chefProjetM = $(this).find("td:nth-child(9)").html(); 
+						});
+
+						iidTacheEdit.val(idTacheEdit);
+						iidProjetEdit.val(idProjetEdit);
+						inomProjetEdit.val(nomProjetEdit);
+						document.getElementById('chefProjetM').value = chefProjetM;
+						document.getElementById('chefProjetM').value = chefProjetM;
+						inomClientM.val(nomClientM);
+						inomTacheM.val(nomTacheM);
+						document.getElementById('statusM').value = statusM.capitalize();
+						document.getElementById('nomProjetMT').value = nomProjetEdit;
+						document.getElementById("datefTacheM").value = datefTacheM;
+						//idatefTacheM.val(datefTacheM);
+						}
+				});
+
+		String.prototype.capitalize = function() {
+		    return this.charAt(0).toUpperCase() + this.slice(1);
+		}
+
+				function selectItemByValue(elmnt, value){
+
+					  for(var i=0; i < elmnt.options.length; i++)
+					  {
+					    if(elmnt.options[i].value === value) {
+					      elmnt.selectedIndex = i;
+					      break;
+					    }
+					  }
+					}
+
+
+	$("#btn_tacheP").click(	
+			function() { 
+				
+				
+				var json = {
+						"idProjet" :document.getElementById('idProjetEdit').value,
+						"nomProjet" : document.getElementById('nomProjetEdit').value,
+						"chefProjet" : document.getElementById('chefProjetM').value,
+						"nomClient" : document.getElementById('nomClientM').value
+					};
+					$.ajax({
+						type : "POST",
+						dataType : 'json',
+						url : "/GestionSphere/projet/edit",
+						data : json, // Note it is important
+						success : function(result) {
+							window.open("index", "_self");
+						},
+						error : function(x, e) {
+							window.open("index", "_self");
+						}
+					});  
+
+
+				});
+
+	
+	$("#btn_tacheT").click(	
+			function() { 			
+				var json = {
+						"idTacheEdit" : document.getElementById('idTacheEdit').value,
+						"nomTacheM" : document.getElementById('nomTacheM').value,
+						"statusM" : document.getElementById('statusM').value,
+						"datefTacheM" : document.getElementById('datefTacheM').value,
+						"nomProjetMT" : document.getElementById('nomProjetMT').value
+					};
+
+
+					$.ajax({
+						type : "POST",
+						dataType : 'json',
+						url : "/GestionSphere/tache/edit",
+						data : json, // Note it is important
+						success : function(result) {
+							window.open("index", "_self");
+						},
+						error : function(x, e) {
+							window.open("index", "_self");
+						}
+					}); 
+
+
+				});
+
+
+	$("#btn_deleteL").click(function(e) {
+		e.preventDefault();
+		//var t = $("#table tr.selected td:first").html();
+		var choix = document.getElementsByName('rads');
+		var id=0;
+		for(var i = 0; i < choix.length; i++){
+		    if(choix[i].checked){
+		        id = choix[i].value;
+		    }
+		}
+		if (id == 0) {
+			$('#myModal').modal('show');	
+		} else {
+			$.ajax({
+				type : 'DELETE',
+				url : "/GestionSphere/tache/remove/" + id,
+				dataType : 'json',
+				async : true,
+				success : function(result) {
+					window.open("index", "_self");
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					window.open("index", "_self");
+				}
+			}); 
+		}
+
+	});
+
+
+	(function(document) {
+		'use strict';
+
+		var LightTableFilter = (function(Arr) {
+
+			var _input;
+	    var _select;
+
+			function _onInputEvent(e) {
+				_input = e.target;
+				var tables = document.getElementsByClassName(_input.getAttribute('data-table'));
+				Arr.forEach.call(tables, function(table) {
+					Arr.forEach.call(table.tBodies, function(tbody) {
+						Arr.forEach.call(tbody.rows, _filter);
+					});
+				});
+			}
+	    
+			function _onSelectEvent(e) {
+				_select = e.target;
+				var tables = document.getElementsByClassName(_select.getAttribute('data-table'));
+				Arr.forEach.call(tables, function(table) {
+					Arr.forEach.call(table.tBodies, function(tbody) {
+						Arr.forEach.call(tbody.rows, _filterSelect);
+					});
+				});
+			}
+
+			function _filter(row) {
+	      
+				var text = row.textContent.toLowerCase(), val = _input.value.toLowerCase();
+				row.style.display = text.indexOf(val) === -1 ? 'none' : 'table-row';
+
+			}
+	    
+			function _filterSelect(row) {
+	     
+				var text_select = row.textContent.toLowerCase(), val_select = _select.options[_select.selectedIndex].value.toLowerCase();
+				row.style.display = text_select.indexOf(val_select) === -1 ? 'none' : 'table-row';
+
+			}
+
+			return {
+				init: function() {
+					var inputs = document.getElementsByClassName('light-table-filter');
+					var selects = document.getElementsByClassName('select-table-filter');
+					Arr.forEach.call(inputs, function(input) {
+						input.oninput = _onInputEvent;
+					});
+					Arr.forEach.call(selects, function(select) {
+	         select.onchange  = _onSelectEvent;
+					});
+				}
+			};
+		})(Array.prototype);
+
+		document.addEventListener('readystatechange', function() {
+			if (document.readyState === 'complete') {
+				LightTableFilter.init();
+			}
+		});
+
+	})(document);

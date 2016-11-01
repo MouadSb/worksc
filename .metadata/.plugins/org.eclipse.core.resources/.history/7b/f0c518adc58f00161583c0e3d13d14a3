@@ -1,0 +1,38 @@
+package com.pharmapanel.controller;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+
+@Path("/venteService")
+public class Sdata {
+	
+
+
+	  @Path("{nomProduit}/{prix}/{date}/{heure}/{quantite}/{idPharmacie}")
+	  @GET
+	  @Produces("application/json")
+		public Response convertCtoFfromInput(@PathParam("nomProduit") String nomProduit,@PathParam("prix") String prix,
+				@PathParam("date") String date,@PathParam("heure") String heure,@PathParam("quantite") String quantite,
+				@PathParam("idPharmacie") String idPharmacie) {
+
+		JSONObject jsonObject = new JSONObject();
+
+		System.out.println("nomProduit :"+ nomProduit);
+		System.out.println("prix :"+ prix);
+		System.out.println("date :"+ date);
+		System.out.println("heure :"+ heure);
+		System.out.println("quantite :"+ quantite);
+		System.out.println("idPharmacie :"+ idPharmacie);
+
+		//String result = "@Produces(\"application/json\") Output: \n\nF tooo C Converter Output: \n\n" + jsonObject; 
+		return Response.status(200).build();
+	  }
+	
+}

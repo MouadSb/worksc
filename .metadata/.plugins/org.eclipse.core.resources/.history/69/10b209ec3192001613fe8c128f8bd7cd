@@ -1,0 +1,59 @@
+package com.pharmapanel.client;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.core.MediaType;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.api.json.JSONConfiguration;
+
+
+public class PharmapanelClient {
+
+	public static void main(String[] args) {
+		 
+		PharmapanelClient crunchifyClient = new PharmapanelClient();
+		crunchifyClient.getFtoCResponse();
+	}
+ 
+	private void getFtoCResponse() {
+		try {
+			
+			Track t = new Track("1","2");
+			Track t2 = new Track("3","4");
+			
+			List<Track> listT = new ArrayList<Track>();
+			listT.add(t);
+			listT.add(t2);
+			
+		    ClientConfig clientConfig = new DefaultClientConfig();
+		    clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
+		    com.sun.jersey.api.client.Client c = com.sun.jersey.api.client.Client.create(clientConfig);
+			WebResource webResource = c.resource("http://localhost:8080/pharmaapanel/spherebl/venteService/post");
+		    ClientResponse response = webResource.accept(MediaType.APPLICATION_JSON)
+		    		.type(MediaType.APPLICATION_JSON).post(ClientResponse.class, listT);
+
+		    if (response.getStatus() != 200) {
+		        throw new RuntimeException("Failed sendClientList: HTTP error code : " + response.getStatus());
+		        }
+
+		        String output = response.getEntity(String.class);
+
+		        System.out.println("sendClientList... Server response .... \n");
+		        System.out.println(output);
+		} catch (Exception e) {
+
+		    e.printStackTrace();
+
+		}
+
+		}
+}
+
+	

@@ -1,0 +1,12 @@
+INDEX VERSION 1.3+C:\Users\spherebl\workspace\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+98846185.index
+897356714.index
+4282987428.index
+1735431141.index
+753453742.index
+1891956069.index
+1458317342.index
+1935781962.index
+886316635.index
+2425425115.index
+2526875991.index

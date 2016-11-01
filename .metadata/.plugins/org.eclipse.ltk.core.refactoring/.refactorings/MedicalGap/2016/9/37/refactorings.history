@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;bootstrap-switch.js&apos; to &apos;js&apos;&#x0D;&#x0A;- Original project: &apos;MedicalGap&apos;&#x0D;&#x0A;- Destination element: &apos;js&apos;&#x0D;&#x0A;- Original element: &apos;bootstrap-switch.js&apos;" description="Copy file" element1="WebContent/resources/js/bootstrap-switch.js" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1473930641944" target="/MedicalGap/WebContent/WEB-INF/resources/js" units="0" version="1.0"/>
+</session>

@@ -1,0 +1,64 @@
+!SESSION 2016-09-05 14:47:01.980 -----------------------------------------------
+eclipse.buildId=4.3.2.M20140221-1700
+java.version=1.8.0_91
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_FR
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2016-09-06 10:58:56.271
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2016-09-06 10:59:02.715
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842776 2016-09-06 11:01:24.771
+!MESSAGE Server shutting down
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2016-09-06 11:01:24.975
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2016-09-06 11:01:24.975
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842785 2016-09-06 11:01:25.043
+!MESSAGE Server Shutdown Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2016-09-06 11:01:25.934
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842769 2016-09-06 11:01:32.338
+!MESSAGE Server Startup Succeeded
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2016-09-06 11:05:07.076
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2016-09-06 11:07:44.898
+!MESSAGE Module MedicalGap published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 0 33685505 2016-09-06 11:07:44.914
+!MESSAGE Module spring-web-4.0.3.RELEASE.jar published without error.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2016-09-06 11:07:45.865
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2016-09-06 11:07:48.273
+!MESSAGE Server processes have been terminated.
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2016-09-06 11:08:13.725
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2016-09-06 11:08:15.431
+!MESSAGE Server processes have been terminated.
+
+!ENTRY unknown 0 0 2016-09-06 11:11:53.847
+!MESSAGE OK
+
+!ENTRY unknown 0 0 2016-09-06 11:11:53.851
+!MESSAGE OK
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16842760 2016-09-06 11:11:54.693
+!MESSAGE Server Starting
+
+!ENTRY org.jboss.ide.eclipse.as.core 1 16973825 2016-09-06 11:11:56.311
+!MESSAGE Server processes have been terminated.

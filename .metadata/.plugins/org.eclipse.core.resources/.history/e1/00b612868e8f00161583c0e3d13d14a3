@@ -1,0 +1,249 @@
+package com.gestionInterne.Controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.security.core.userdetails.User;
+
+import com.gestionInterne.DAO.entity.Projet;
+import com.gestionInterne.DAO.entity.Tach;
+import com.gestionInterne.DAO.entity.tacheModel;
+import com.gestionInterne.Service.Interface.InterfaceMetierModule;
+import com.gestionInterne.Service.Interface.InterfaceMetierProjet;
+import com.gestionInterne.Service.Interface.InterfaceMetierTach;
+import com.gestionInterne.Service.Interface.UserInterfaceMetier;
+import com.gestionInterne.Service.Interface.UserRolesInterfaceMetier;
+
+@Controller
+public class UserController {
+
+	
+	@Autowired
+	private InterfaceMetierTach userT;
+	
+	@Autowired
+	private InterfaceMetierProjet userP;
+
+	@Autowired
+	private UserInterfaceMetier userMetier;
+	
+	@Autowired
+	private UserRolesInterfaceMetier userRoleMetier;
+
+	@Autowired
+	private InterfaceMetierModule userM;
+	
+	
+	@RequestMapping(value = { "/", "/welcome**" }, method = RequestMethod.GET)
+	public String defaultPage() {
+
+		ModelAndView model = new ModelAndView();
+		model.addObject("title", "Spring Security Login Form - Database Authentication");
+		model.addObject("message", "This is default page!");
+		model.setViewName("hello");
+		
+		return "redirect:/login";
+	}
+
+	@RequestMapping(value = "/admin**", method = RequestMethod.GET)
+	public ModelAndView adminPage() {
+
+		ModelAndView model = new ModelAndView();
+		model.addObject("title", "Spring Security Login Form - Database Authentication");
+		model.addObject("message", "This page is for ROLE_ADMIN only!");
+		model.setViewName("admin");
+
+		return model;
+
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
+			@RequestParam(value = "logout", required = false) String logout) {
+
+		ModelAndView model = new ModelAndView();
+		if (error != null) {
+			model.addObject("error", "Invalid username and password!");
+		}
+
+		if (logout != null) {
+			model.addObject("msg", "You've been logged out successfully.");
+		}
+		model.setViewName("login");
+
+		return model;
+
+	}
+	
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    if (auth != null){    
+	        new SecurityContextLogoutHandler().logout(request, response, auth);
+	    }
+	    return "redirect:/login?logout";
+	}
+
+	@RequestMapping(value = "/index", method = {RequestMethod.GET, RequestMethod.POST})
+	public String listRegistres(Model model) {
+	      User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	      String name = user.getUsername();
+	      List<Projet> projets;
+	      List<Tach> taches = userT.getAllTach();
+	      List<com.gestionInterne.DAO.entity.User> users = userMetier.getAllUser();
+	      List<tacheModel> tachModel = new ArrayList<tacheModel>();
+	      com.gestionInterne.DAO.entity.User us = userMetier.getUser(name);
+	      if(us.getUserRoles().get(0).getRole().compareTo("ROLE_ADMIN")==0){
+	    	  projets = userP.getAllProjet();
+	      }else{
+		      projets = userP.getAllProjetbyChef(us.getId());
+	      }
+	      for (Tach tach : taches) {
+	    	  
+	    	  for(int i=0;i<projets.size();i++){
+	    		  if(tach.getIdProjet() == projets.get(i).getIdProjet()){
+	    			  for(int j=0;j<users.size();j++){
+	    				  
+	    				  if(projets.get(i).getIdChef() == users.get(j).getId()){
+	    					  
+	    					  tacheModel t = new tacheModel();
+	    					  t.setChefProjet(users.get(j).getNom()+" "+ users.get(j).getPrenom());
+	    					  t.setDatedTache(tach.getDatedTache());
+	    					  t.setDatefTache(tach.getDatefTache());
+	    					  t.setNomClient(projets.get(i).getNomClient());
+	    					  t.setNomTache(tach.getNomTache());
+	    					  t.setStatutTache(tach.getStatutTache());
+	    					  t.setNomProjet(projets.get(i).getNomProjet());
+	    					  t.setIdTache(tach.getIdTache());
+
+	    					  t.setIdProjet(projets.get(i).getIdProjet());
+	    					  if(us.getUserRoles().get(0).getRole().compareTo("ROLE_ADMIN")==0){
+	    						 // ((Object) t).setNomUser(userMetier.getUser(projets.get(i).getIdUser()).getNom() + " "+ userMetier.getUser(projets.get(i).getIdUser()).getPrenom());	    						  
+	    						  t.setNomUtilisateur(userMetier.getUserById(projets.get(i).getIdUser()).getNom()+ " "+ 
+	    								  userMetier.getUserById(projets.get(i).getIdUser()).getPrenom()
+	    								  );	  
+	    					  }
+	    					  tachModel.add(t);
+	    				  }
+	    			  }
+	    		  }
+	    	  }
+	    	  
+		}
+	      model.addAttribute("currentUser",us.getNom() +" "+us.getPrenom() );
+		  if(us.getUserRoles().get(0).getRole().compareTo("ROLE_ADMIN")==0){ 
+			  model.addAttribute("listModule", userM.getAllModule());
+	    	  return "adminCategorie";
+	      }else{
+	    	  model.addAttribute("projetModel",new Projet());
+		      model.addAttribute("Tach", new Tach());
+		      model.addAttribute("listProjet", tachModel); // List project by id user ( session )
+		      model.addAttribute("listptache", userP.getAllProjetbyName(us.getId())); // List name projects
+			  model.addAttribute("chefList", users);
+	    	  return "utilisateur";	  
+	      }
+    	  
+	}
+	
+	@RequestMapping(value = "/projet/add", method = RequestMethod.POST)
+	public String addProjet(@ModelAttribute("projetModel") Projet p, Model model) {
+		
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String name = user.getUsername();
+		com.gestionInterne.DAO.entity.User us = userMetier.getUser(name);
+		p.setIdUser(us.getId());
+		userP.addProjet(p);
+		return "redirect:/index";
+	}
+	
+	@RequestMapping(value = "/tache/add", method = RequestMethod.POST)
+	public String addTache(@ModelAttribute("Tach") Tach tache, Model model) {
+		
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String name = user.getUsername();
+		com.gestionInterne.DAO.entity.User us = userMetier.getUser(name);
+		userT.addTach(tache);
+		return "redirect:/index";
+
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/projet/edit", method = RequestMethod.POST)
+	public String projetEdit(
+			@RequestParam String idProjet, @RequestParam String nomProjet,
+			@RequestParam String chefProjet, @RequestParam String nomClient,Model model) {
+		
+		Projet projet = userP.getProjet(Integer.parseInt(idProjet));
+		projet.setNomClient(nomClient);
+		projet.setNomProjet(nomProjet);
+		String string = chefProjet;
+		String[] fullname = string.split(" ");
+		String nom =fullname[0]; // nom
+		String prenom = fullname[1]; // prenom
+		com.gestionInterne.DAO.entity.User us = userMetier.getUserByfullName(nom, prenom);
+		projet.setIdChef(us.getId());
+		userP.updateProjet(projet);
+		return "redirect:/index";
+	}
+	
+	@RequestMapping(value = "/tache/edit", method = RequestMethod.POST)
+	public String editTache(
+			@RequestParam String idTacheEdit, @RequestParam String nomTacheM,
+			@RequestParam String statusM, @RequestParam String datefTacheM,
+			@RequestParam String nomProjetMT,
+			Model model) {
+		User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String name = user.getUsername();
+		com.gestionInterne.DAO.entity.User us = userMetier.getUser(name);
+		
+		Tach t = userT.getTach(Integer.parseInt(idTacheEdit));
+		t.setNomTache(nomTacheM);
+		t.setStatutTache(statusM);
+		//t.setDatefTache(datefTache);
+		List<Projet> listp = userP.getAllProjetbyName(us.getId());
+		int idProjet=0;
+		for (Projet projet : listp) {
+			if(projet.getNomProjet().compareTo(nomProjetMT)==0){
+				idProjet=projet.getIdProjet();
+			}
+		}
+		t.setIdProjet(idProjet);
+		userT.updateTach(t);
+		return "redirect:/index";
+	}
+	
+	@RequestMapping(value = "/tache/remove/{id}", method = RequestMethod.DELETE)
+	public String removeTache(@PathVariable("id") int id, Model model) {
+		Tach t = userT.getTach(id);
+		userT.deleteTach(t);
+		return "redirect:/index";
+	}
+
+	
+	@RequestMapping(value = "/projet/delete", method = RequestMethod.POST)
+	public String removeProjet(
+			
+			Model model) {
+		int id = 0;
+		Projet projet = userP.getProjet(id);
+		userP.deleteProjet(projet);
+		return "redirect:/index";
+	}
+	
+}

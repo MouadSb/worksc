@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+		<list key="ciManagementUrl">
+		</list>
+		<list key="ciManagementSystem">
+		</list>
+		<list key="issueManagementSystem">
+		</list>
+		<list key="issueManagementUrl">
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.ui.internal.dialogs.MavenRepositorySearchDialog">
+		<item value="480" key="width"/>
+		<item value="560" key="x"/>
+		<item value="135" key="y"/>
+		<item value="450" key="height"/>
+	</section>
+	<section name="wizardPage">
+		<list key="groupId">
+			<item value="Gestionactivities"/>
+			<item value="gestionInterne"/>
+			<item value="gestionInterneActivities"/>
+			<item value="product_filtre"/>
+			<item value="PROJETSTR"/>
+			<item value="MedicalGap"/>
+		</list>
+		<list key="name">
+			<item value="MedicalGap"/>
+		</list>
+		<list key="artifactId">
+			<item value="Gestionactivities"/>
+			<item value="gestionInterne"/>
+			<item value="gestionInterneActivities"/>
+			<item value="product_filtre"/>
+			<item value="PROJETSTR"/>
+			<item value="MedicalGap"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+</section>

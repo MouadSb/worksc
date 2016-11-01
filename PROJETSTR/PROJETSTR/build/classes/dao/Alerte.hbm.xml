@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+<class name="dao.Alerte" table="alerte" >
+
+	<id name="Id_alerte" column="Id_alerte"  >
+		<generator class="native"></generator>
+	</id>
+	
+	<property name="Type_alerte" column="Type_alerte"></property>
+	<property name="Id_device" column="Id_device"></property>
+	<property name="Message" column="Message"></property>
+	
+	
+</class>
+ 
+  
+</hibernate-mapping>

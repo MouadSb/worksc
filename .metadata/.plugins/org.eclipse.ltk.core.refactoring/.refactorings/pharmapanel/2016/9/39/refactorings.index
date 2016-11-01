@@ -1,0 +1,26 @@
+1474963320519	Rename package 'com.gestionInterne.Controller'
+1474963332234	Rename package 'com.gestionInterne.DAO.entity'
+1474963340135	Rename package 'com.gestionInterne.DAO.implDAO'
+1474963348037	Rename package 'com.gestionInterne.DAO.intDAO'
+1474963354008	Rename package 'com.gestionInterne.Service.Impl'
+1474963361609	Rename package 'com.gestionInterne.Service.Interface'
+1474963368530	Rename package 'com.gestionInterne.Test'
+1474963436895	Delete elements
+1474963477479	Delete element
+1474963481205	Delete element
+1474963484988	Delete element
+1474963488974	Delete element
+1474963530833	Rename type 'Projet'
+1474963549462	Rename type 'ImplProjet'
+1474963560869	Rename type 'InterfaceProjet'
+1474963570399	Rename type 'ImplMetierProjet'
+1474963581122	Rename type 'InterfaceMetierProjet'
+1474985704116	Delete element
+1474985919722	Delete elements
+1474986727811	Move compilation unit
+1474986732928	Move compilation unit
+1474986739905	Move compilation unit
+1474987359726	Delete element
+1474989149011	Delete element
+1474989633905	Move compilation unit
+1474989640143	Move compilation unit

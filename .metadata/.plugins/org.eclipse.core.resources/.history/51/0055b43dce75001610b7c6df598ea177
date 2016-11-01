@@ -1,0 +1,75 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+ <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@page session="true"%>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="resources/css/bootstrap.min.css">
+<title>Administrateur</title>
+
+<script src="resources/js/jquery-2.1.4.min.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
+<script src="resources/js/script.js"></script>
+
+
+<link
+	href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"
+	rel="stylesheet" />
+<link
+	href="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css"
+	rel="stylesheet" />
+<link
+	href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.5.4/bootstrap-select.min.css"
+	rel="stylesheet" />
+<script
+	src="resources/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>	
+<link rel="stylesheet" href="resources/css/styles.css">
+
+
+</head>
+<body class="full-bg user-home-bg" style="background-image: url('resources/images/backgroundUser.png') ;  
+	background-attachment:fixed;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;">
+	<div class="container-fluid">
+		
+		<div class="row" style="margin-top:150px;">
+			<%@include file="forms/modelAdd.jsp"%>
+			<%@include file="forms/modelEdit.jsp"%>
+			<%@include file="forms/modalConfirm.jsp"%>
+			 <div class="btn-group col-md-1 col-md-offset-10">
+		    
+				   <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+				   		    <img alt="profil" src="resources/images/icone_profil.png"></button>
+		    		</a>
+				    <ul class="dropdown-menu" role="menu">
+				      <li><a href="#">Profil</a></li>
+				      <li><a href="<c:url value="/logout" />">Deconnexion</a></li>
+				    </ul>
+ 			 </div>
+ 		 </div></div>
+ 		 <div class="row" style="margin-top:10px;">
+
+			<div class="col-md-6 col-md-offset-1 no-padding">
+				<div class=" col-md-12">
+						<p class="pull-left" id="pAuth" style="font-size: 30px; color:#363636;"> <span style="text-transform: capitalize">Bienvenue ${currentUser}</span><p>
+				</div>
+				<div class="pull-left col-md-12" style="margin-top: -10px;">
+						<p class="pull-left" id="pAuth2" style="font-size: 14px; color:#363636; letter-spacing: 1.5px;"> sur l'application gestion des activités SPHEREBLEUE <p>				
+				</div>
+			</div>
+		</div>
+ 	 
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+package com.pharmapanel.client;
+
+public class PharmapanelClient {
+
+	public static void main(String[] args) {
+
+	}
+
+}
